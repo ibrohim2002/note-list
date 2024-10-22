@@ -1,5 +1,5 @@
 <template>
-    <div class="card mb-4">
+  <div class="card mb-4">
     <div class="card-content">
       <div class="content">
         {{ note.content }}
@@ -16,23 +16,22 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
-
+import { computed, ref } from "vue";
+import { useNotesStore } from "@/stores/NotesStore";
 const props = defineProps({
-    note: {
-        type: Object,
-        required: true,
-    }
-})
+  note: {
+    type: Object,
+    required: true,
+  },
+});
+const notesStore = useNotesStore();
+const characterLength = computed(() => {
+  const noteLength = props.note.content.length;
+  const description = noteLength > 1 ? "characters" : "character";
+  return `${noteLength} ${description}`;
+});
 
-const emit = defineEmits(['onDelete'])
-const characterLength = computed(()=>{
-    const noteLength = props.note.content.length
-    const description = noteLength>1? 'characters': 'character'
-    return `${noteLength} ${description}`
-})
-
-const handleDeleteClick = ()=>{
-  emit('onDelete')
-}
+const handleDeleteClick = () => {
+  notesStore.deleteNote(props.note.id);
+};
 </script>

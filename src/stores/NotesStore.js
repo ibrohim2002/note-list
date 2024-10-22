@@ -11,5 +11,9 @@ export const useNotesStore = defineStore("notesStore", () => {
     const note = { id: Date.now(), content: noteContent };
     notes.value.unshift(note);
   };
-  return { notes, addNote };
+
+  const deleteNote = (noteId) => {
+    notes.value = notes.value.filter((note) => note.id !== noteId);
+  };
+  return { notes, addNote, deleteNote };
 });
