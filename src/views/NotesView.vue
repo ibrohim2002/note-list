@@ -35,17 +35,16 @@
 
 <script setup>
 import SinglePost from "@/components/Notes/SinglePost.vue";
+import { useNotesStore } from "@/stores/NotesStore";
+import { storeToRefs } from "pinia";
 import { ref } from "vue";
+const notesStore = useNotesStore();
 const newNoteRef = ref(null);
 const newNote = ref("");
-const notes = ref([
-  { id: "id1", content: "qwerty" },
-  { id: "id2", content: "ytrewq" },
-]);
+const { notes } = storeToRefs(notesStore);
 
 const addNote = () => {
-  const note = { id: Date.now(), content: newNote.value };
-  notes.value.unshift(note);
+  notesStore.addNote(newNote.value)
   newNote.value = "";
   newNoteRef.value.focus();
 };
