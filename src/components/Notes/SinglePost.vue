@@ -9,7 +9,11 @@
       </div>
     </div>
     <footer class="card-footer">
-      <a href="#" class="card-footer-item">Edit</a>
+      <RouterLink
+        :to="{ name: 'editNote', params: { id: note.id } }"
+        class="card-footer-item"
+        >Edit</RouterLink
+      >
       <a href="#" class="card-footer-item" @click="handleDeleteClick">Delete</a>
     </footer>
   </div>
@@ -18,6 +22,7 @@
 <script setup>
 import { computed, ref } from "vue";
 import { useNotesStore } from "@/stores/NotesStore";
+import AddEditNote from "./AddEditNote.vue";
 const props = defineProps({
   note: {
     type: Object,
