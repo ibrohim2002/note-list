@@ -8,7 +8,7 @@
   >
     <template #button>
       <RouterLink class="button mr-2" :to="{ name: 'notes' }">Cancel</RouterLink>
-      <button class="button is-link" :disabled="!noteContent">Save Note</button>
+      <button class="button is-link" :disabled="!noteContent" @click="onNoteSave">Save Note</button>
     </template>
   </AddEditNote>
 </template>
@@ -16,8 +16,15 @@
 <script setup>
 import AddEditNote from "@/components/Notes/AddEditNote.vue";
 import { useNotesStore } from "@/stores/NotesStore";
-import { useRoute } from "vue-router";
+import { ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
 const route = useRoute()
+const router = useRouter()
 const notesStore  = useNotesStore()
-const noteContent = notesStore.getNoteById(route.params.id);
+const noteContent = ref('')
+noteContent.value = notesStore.getNoteById(route.params.id);
+const onNoteSave =()=>{
+  notesStore.updateNote(route.params.id, noteContent.value)
+  router.back()
+}
 </script>
