@@ -31,7 +31,7 @@
       >
         <div class="navbar-start" v-if="authStore.user.email">
           <button class="button is-info is-small my-2 ml-2" @click="onLogout">
-            Logout
+            Logout {{ authStore.user.email }}
           </button>
         </div>
         <div class="navbar-end">
