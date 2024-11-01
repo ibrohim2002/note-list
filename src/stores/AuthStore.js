@@ -12,19 +12,19 @@ import { useNotesStore } from "./NotesStore";
 
 export const useAuthStore = defineStore("authStore", () => {
   const user = ref({});
-  const router = useRouter()
-  const notesStore = useNotesStore()
+  const router = useRouter();
+  const notesStore = useNotesStore();
   const init = () => {
     onAuthStateChanged(auth, (userDetails) => {
       if (userDetails) {
         const uid = userDetails.uid;
         user.value = { email: userDetails.email, uid };
-        router.push({name: 'notes'})
-        notesStore.getNotes()
-    } else {
+        router.push({ name: "notes" });
+        notesStore.getNotes();
+      } else {
         user.value = {};
-        router.replace({name: 'auth'})
-        notesStore.clearNotes()
+        router.replace({ name: "auth" });
+        notesStore.clearNotes();
       }
     });
   };
@@ -43,21 +43,21 @@ export const useAuthStore = defineStore("authStore", () => {
         // ...
       })
       .catch((error) => {
+        alert('This email has already been registered')
         console.log(error.message);
         // ..
       });
   };
   const loginUser = (credentials) => {
     signInWithEmailAndPassword(auth, credentials.email, credentials.password)
-      .then((userCredential) => {
+    .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log();
 
         // ...
       })
       .catch((error) => {
-        console.log(error.message);
+        alert("no user found");
       });
   };
   const logoutUser = () => {
@@ -76,6 +76,6 @@ export const useAuthStore = defineStore("authStore", () => {
     loginUser,
     logoutUser,
     init,
-    user
+    user,
   };
 });

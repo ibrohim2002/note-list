@@ -22,6 +22,10 @@ export const useNotesStore = defineStore("notesStore", () => {
   let notesSnapshot = null;
   let notesCollectionRef;
   let notesCollectionQuery;
+  const credentials = {
+    email: "",
+    password: "",
+  };
 
   const getNoteContentById = computed(() => {
     return (id) => {
@@ -110,6 +114,7 @@ export const useNotesStore = defineStore("notesStore", () => {
     totalNotesCount,
     getNotes,
     notesLoaded,
+    credentials,
     clearNotes,
   };
 });
